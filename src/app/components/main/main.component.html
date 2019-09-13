@@ -1,0 +1,12 @@
+<main>
+
+  <app-loading *ngIf="loading"></app-loading>
+
+  <div class="box">
+    <div id="chartContainer"></div>
+    <app-actual-values [buyValue]="resultsBuy[resultsBuy.length-1].value" [sellValue]="resultsSell[resultsSell.length-1].value" *ngIf="!loading"></app-actual-values>
+  </div>
+
+
+
+</main>

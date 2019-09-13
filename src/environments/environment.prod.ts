@@ -1,3 +1,4 @@
 export const environment = {
-  production: true
+  production: true,
+  exchangeUrl: 'assets/server/exchangeRates.php'
 };

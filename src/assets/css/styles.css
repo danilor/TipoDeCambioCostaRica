@@ -1,0 +1,174 @@
+/**
+  MAIN STYLES FILE
+  "Grab this sword, and go to the valley and show it to the ancients. They will give you some words,
+  the last words you will ever need to hear"
+ */
+/**
+Mixins
+ */
+/**
+Using bootstrap breakpoints
+ */
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font: inherit;
+  vertical-align: baseline;
+}
+
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+  display: block;
+}
+
+body {
+  line-height: 1;
+}
+
+ol, ul {
+  list-style: none;
+}
+
+blockquote, q {
+  quotes: none;
+}
+
+blockquote:before, blockquote:after,
+q:before, q:after {
+  content: "";
+  content: none;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.canvasjs-chart-credit {
+  display: none !important;
+}
+
+main {
+  font-family: "Open Sans", sans-serif;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: #fdfcfc;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -moz-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -moz-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+  -webkit-flex-direction: column;
+  flex-direction: column;
+}
+main .box {
+  width: 100%;
+}
+main .box #chartContainer {
+  width: 100%;
+  height: 50vh;
+}
+main .box .actualValues {
+  width: 100%;
+  margin-top: 16px;
+  height: 10vh;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: space-around;
+  -moz-box-pack: space-around;
+  -ms-flex-pack: space-around;
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+}
+main .box .actualValues .minibox {
+  text-align: center;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: space-around;
+  -moz-box-pack: space-around;
+  -ms-flex-pack: space-around;
+  -webkit-justify-content: space-around;
+  justify-content: space-around;
+  flex-direction: column;
+  width: 47%;
+}
+main .box .actualValues .minibox h4 {
+  font-size: calc( 26px + 0.7vmin );
+  padding: 6px auto;
+}
+main .box .actualValues .minibox h5 {
+  font-size: calc( 18px + 0.5vmin );
+}
+@media (min-width: 576px) {
+  main .box .actualValues .minibox {
+    width: 47%;
+  }
+}
+@media (min-width: 768px) {
+  main .box .actualValues .minibox {
+    width: 32%;
+  }
+}
+@media (min-width: 992px) {
+  main .box .actualValues .minibox {
+    width: 27%;
+  }
+}
+@media (min-width: 1400px) {
+  main .box .actualValues .minibox {
+    width: 20%;
+  }
+}
+main .box .actualValues .minibox.buy {
+  border: 3px solid #4F81BC;
+  background-color: #52adeb;
+  color: white;
+}
+main .box .actualValues .minibox.sell {
+  border: 3px solid #C0504E;
+  background-color: #f45b59;
+  color: white;
+}
+
+/*# sourceMappingURL=styles.css.map */

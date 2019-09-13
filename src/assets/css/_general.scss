@@ -1,0 +1,72 @@
+main{
+  font-family: 'Open Sans', sans-serif;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: #fdfcfc;
+
+  @include flex();
+  @include flex_absolute_center();
+
+  .box{
+    width: 100%;
+    #chartContainer{
+      width: 100%;
+      height: 50vh;
+    }
+
+    .actualValues{
+      width: 100%;
+      margin-top: 16px;
+      height: 10vh;
+      @include flex();
+      @include flex_justify(space-around);
+      .minibox{
+        text-align:center;
+        @include flex();
+        @include flex_justify(space-around);
+        flex-direction: column;
+
+        h4{
+          font-size: calc( 26px + 0.7vmin );
+
+          padding: 6px auto;
+        }
+        h5{
+          font-size: calc( 18px + 0.5vmin );
+
+        }
+        width: 47%;
+        @include min_xs(){
+          width: 47%;
+        }
+        @include min_md(){
+          width: 32%;
+        }
+        @include min_lg(){
+          width: 27%;
+        }
+        @include min_hg(){
+          width: 20%;
+        }
+
+        &.buy{
+          border: 3px solid #4F81BC;
+          background-color: #52adeb;
+          color: white;
+        }
+        &.sell{
+          border: 3px solid #C0504E;
+          background-color: #f45b59;
+          color: white;
+        }
+
+      }
+    }
+
+  }
+
+
+
+}
+
