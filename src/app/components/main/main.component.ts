@@ -33,7 +33,7 @@ export class MainComponent implements OnInit {
   setUpVariables() {
     this.currentTime = moment();
     this.endDate = moment();
-    this.startDate = moment().subtract(30, 'days');
+    this.startDate = moment().subtract(90, 'days');
   }
 
 
