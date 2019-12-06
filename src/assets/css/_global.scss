@@ -2,3 +2,11 @@
   display:none!important;
 }
 
+.flex-left{
+  @include flex();
+  flex-direction: row;
+}
+.flex-right{
+  @include flex();
+  flex-direction: row-reverse;
+}

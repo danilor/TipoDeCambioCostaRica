@@ -1,61 +1,102 @@
-main{
+main {
   font-family: 'Open Sans', sans-serif;
   height: 100vh;
   width: 100vw;
   overflow: hidden;
-  background-color: #fdfcfc;
+  background-color: #F1F2F7;
 
-  @include flex();
-  @include flex_absolute_center();
+  //@include flex();
+  //@include flex_absolute_center();
 
-  .box{
+
+  .row {
+
+    @include flex();
+
+    .col-half {
+      width: 50% !important;
+    }
+  }
+
+  nav {
     width: 100%;
-    #chartContainer{
+    min-height: 50px;
+    height: 50px;
+    background: white !important;
+    @include set_shadow(0px 0px 18px 0px rgba(0, 0, 0, 0.75));
+  }
+
+  section {
+    min-height: calc(100vh - 50px);
+    height: calc(100vh - 50px);
+    @include flex();
+    @include flex_absolute_center();
+  }
+
+  .box {
+    max-width: 1200px;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+
+    #chartContainer {
       width: 100%;
       height: 50vh;
     }
 
-    .actualValues{
-      width: 100%;
-      margin-top: 16px;
-      height: 10vh;
+    .actualValues {
+      //width: 100%;
+      //margin-top: 16px;
+      height: 40px;
+      margin-top: 5px;
+
       @include flex();
-      @include flex_justify(space-around);
-      .minibox{
-        text-align:center;
+      //@include flex_justify(space-around);
+
+      .minibox {
+        //text-align: center;
         @include flex();
+        //@include flex_justify(space-around);
         @include flex_justify(space-around);
-        flex-direction: column;
+        @include flex_align(center);
+        //flex-direction: column;
 
-        h4{
-          font-size: calc( 26px + 0.7vmin );
-
-          padding: 6px auto;
+        h4 {
+          //font-size: calc(26px + 0.7vmin);
+          font-size: 20px;
+          //padding: 6px auto;
         }
-        h5{
-          font-size: calc( 18px + 0.5vmin );
+
+        h5 {
+          //font-size: calc(18px + 0.5vmin);
+          font-size: 14px;
 
         }
+
+        margin-right: 5px;
+
         width: 47%;
-        @include min_xs(){
+        @include min_xs() {
           width: 47%;
         }
-        @include min_md(){
+        @include min_md() {
           width: 32%;
         }
-        @include min_lg(){
+        @include min_lg() {
           width: 27%;
         }
-        @include min_hg(){
+        @include min_hg() {
           width: 20%;
         }
 
-        &.buy{
+        &.buy {
           border: 3px solid #4F81BC;
           background-color: #52adeb;
           color: white;
+
         }
-        &.sell{
+
+        &.sell {
           border: 3px solid #C0504E;
           background-color: #f45b59;
           color: white;
@@ -66,6 +107,28 @@ main{
 
   }
 
+  .period_selector{
+
+    width: 47%;
+    @include min_xs() {
+      width: 47%;
+    }
+    @include min_md() {
+      width: 32%;
+    }
+    @include min_lg() {
+      width: 27%;
+    }
+    @include min_hg() {
+      width: 20%;
+    }
+    select#period_selector{
+      height: 40px;
+      margin-top: 5px;
+      width: 100%;
+      font-size: 20px;
+    }
+  }
 
 
 }

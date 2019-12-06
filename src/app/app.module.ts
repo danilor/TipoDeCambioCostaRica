@@ -7,6 +7,7 @@ import { MainComponent } from './components/main/main.component';
 import {HttpClientModule} from '@angular/common/http';
 import { LoadingComponent } from './components/loading/loading.component';
 import { ActualValuesComponent } from './components/actual-values/actual-values.component';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,8 @@ import { ActualValuesComponent } from './components/actual-values/actual-values.
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

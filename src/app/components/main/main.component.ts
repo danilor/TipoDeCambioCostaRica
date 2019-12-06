@@ -20,20 +20,32 @@ export class MainComponent implements OnInit {
   public resultsBuy = null;
   public resultsSell = null;
 
+  public periodDays = 60;
+
+  public periodOptions = [
+    7, 15, 30, 60, 90, 180, 360, 1080
+  ];
+
 
   constructor(private bccrService: BccrService) {
   }
 
   ngOnInit() {
+    // this.renderChart();
+    this.searchInformation();
+  }
+
+  searchInformation(){
+    this.loading = true;
     this.setUpVariables();
     this.getExchangeRate();
-    // this.renderChart();
+    this.loading = false;
   }
 
   setUpVariables() {
     this.currentTime = moment();
     this.endDate = moment();
-    this.startDate = moment().subtract(60, 'days');
+    this.startDate = moment().subtract(this.periodDays, 'days');
   }
 
 
