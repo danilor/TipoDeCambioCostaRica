@@ -8,6 +8,8 @@
 
     define( 'BCCR_BUY_ID', 317 );
     define( 'BCCR_SELL_ID', 318 );
+	define( 'SUBSCRIPTION_EMAIL', 'daniloramirez.cr@gmail.com' );
+	define( 'SUBSCRIPTION_TOKEN', 'EGCE102S2C' );
 
     // Checks whether the page has been cached or not
     function is_cached($file) {
@@ -34,7 +36,30 @@
     }
 
     function getFinalUrl( $id ){
-        $baseUrl = 'http://indicadoreseconomicos.bccr.fi.cr/indicadoreseconomicos/WebServices/wsIndicadoresEconomicos.asmx/ObtenerIndicadoresEconomicosXML?tcIndicador=[$id]&tcFechaInicio=[$startDate]&tcFechaFinal=[$endDate]&tcNombre=[$tcName]&tnSubNiveles=N';
+
+		$baseUrl = 'https://gee.bccr.fi.cr/Indicadores/Suscripciones/WS/wsindicadoreseconomicos.asmx/ObtenerIndicadoresEconomicos';
+
+
+		$data = array(
+			'Indicador' => $id,
+			'FechaInicio' => @$_REQUEST['tcFechaInicio'],
+			'FechaFinal' => @$_REQUEST['tcFechaFinal'],
+			'Nombre' => @$_REQUEST['tcNombre'],
+			'SubNiveles' => 'N',
+			'CorreoElectronico' => SUBSCRIPTION_EMAIL,
+			'Token' => SUBSCRIPTION_TOKEN
+		);
+		 $data = http_build_query($data);
+
+		$ch = curl_init( $baseUrl );
+		curl_setopt($ch, CURLOPT_URL, $baseUrl);
+		curl_setopt($ch, CURLOPT_POST, 1);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+		curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+
+		return $ch;
+
+        /*$baseUrl = 'http://indicadoreseconomicos.bccr.fi.cr/indicadoreseconomicos/WebServices/wsIndicadoresEconomicos.asmx/ObtenerIndicadoresEconomicosXML?tcIndicador=[$id]&tcFechaInicio=[$startDate]&tcFechaFinal=[$endDate]&tcNombre=[$tcName]&tnSubNiveles=N';
         $newUrl = str_replace
         (
             [
@@ -48,38 +73,57 @@
                 @$_REQUEST['tcFechaInicio'],
                 @$_REQUEST['tcFechaFinal'],
                 @$_REQUEST['tcNombre']
-            ], 
+            ],
             $baseUrl
         );
-        return $newUrl;
+        return $newUrl;*/
+
+		// return $baseUrl;
     }
 
-    function readUrlAndParseInformation( $url ){
-        $data_file = file_get_contents( $url );
-        
-        $xml = simplexml_load_string( $data_file ) or die("Error: Cannot create object");
-        $xml = simplexml_load_string( $xml[0] ) or die("Error: Cannot create object");
+    function readUrlAndParseInformation( $ch ){
+        // $data_file = file_get_contents( $url );
+		$data_file = curl_exec($ch);
+
+		$document = new DOMDocument();
+		$document->loadXml( $data_file );
+
+		// die( $data_file );
+		// $ch = curl_init( url );
+
+		//$xml = simplexml_load_string( $data_file );
+
+		/*var_dump(  );
+		die();*/
+
+
+        /*$xml = simplexml_load_string( $data_file ) or die("Error: Cannot create object. Row 1");
+        $xml = simplexml_load_string( $xml[0] ) or die("Error: Cannot create object. Row 2");
 
         $json = json_encode($xml);
-        $array = json_decode($json,TRUE);
+        $array = json_decode($json,TRUE);*/
 
         // $xml = $xml[0];
-        $results = $array['INGC011_CAT_INDICADORECONOMIC'];
+        // $results = $array['INGC011_CAT_INDICADORECONOMIC'];
+		$results = $document->getElementsByTagName('INGC011_CAT_INDICADORECONOMIC');
         $ordered = [];
-        
+
+		// var_dump( $results[0]->getElementsByTagName('DES_FECHA')[0]->nodeValue );
+        // die();
+
         foreach( $results AS $result ){
             $temp =  new \stdClass();
 
-            $dated = strtotime( $result['DES_FECHA'] );
+            $dated = strtotime( $result->getElementsByTagName('DES_FECHA')[0]->nodeValue );
             $newDateFormat = date('d-m-Y',$dated);
 
-            $temp->original_date = $result['DES_FECHA'];
+            $temp->original_date = $result->getElementsByTagName('DES_FECHA')[0]->nodeValue;
             $temp->year =  date('Y',$dated);
             $temp->month =  date('m',$dated);
             $temp->day =  date('d',$dated);
             $temp->friendly_date = $newDateFormat;
-            $temp->value = (float)$result['NUM_VALOR'];
-            $temp->code = (int)$result['COD_INDICADORINTERNO'];
+            $temp->value = (float)$result->getElementsByTagName('NUM_VALOR')[0]->nodeValue;
+            $temp->code = (int)$result->getElementsByTagName('COD_INDICADORINTERNO')[0]->nodeValue;
 
             $ordered[] = $temp;
         }
@@ -96,7 +140,7 @@
     }else{
         $buyUrl = getFinalUrl( BCCR_BUY_ID );
         $sellUrl = getFinalUrl( BCCR_SELL_ID );
-        $information = new \stdClass();    
+        $information = new \stdClass();
         $information->buy = readUrlAndParseInformation( $buyUrl );
         $information->sell = readUrlAndParseInformation( $sellUrl );
         write_cache($cache_file, json_encode($information));
@@ -106,7 +150,7 @@
     $data->status = 'OK';
     $data->code = 200;
     // $data->buy_url = $buyUrl;
-    // $data->sell_url = $sellUrl; 
+    // $data->sell_url = $sellUrl;
     $data->information = $information;
 
     header('Content-Type: application/json');
